@@ -1,0 +1,28 @@
+mockname: "Mock{{.InterfaceName}}"
+filename: "{{.InterfaceNameSnake}}.go"
+with-expecter: false
+outpkg: mocks
+_anchors:
+  project_pkg_config: &project_pkg_config
+    dir: "{{.InterfaceDir}}/mocks"
+  external_pgk_config: &external_pgk_config
+    dir: "internal/mocks/{{.PackagePath}}"
+packages:
+  bot/internal/model/ai/conversation/repository:
+    interfaces:
+      ConversationRepository:
+        config: *project_pkg_config
+      MessageRepository:
+        config: *project_pkg_config
+  bot/internal/pkg/bot:
+    interfaces:
+      Bot:
+        config: *project_pkg_config
+  bot/internal/pkg/ai:
+    interfaces:
+      PlatformProvider:
+        config: *project_pkg_config
+  github.com/avito-tech/go-transaction-manager/trm/v2:
+    interfaces:
+      Manager:
+        config: *external_pgk_config

@@ -1,0 +1,9 @@
+FROM golang:1.24-alpine AS builder
+RUN apk add --no-cache git
+RUN go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+FROM alpine:latest
+COPY --from=builder /go/bin/migrate /usr/local/bin/
+COPY migrations /app/migrations
+
+WORKDIR /app

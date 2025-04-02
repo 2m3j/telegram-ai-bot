@@ -1,0 +1,10 @@
+services:
+  app:
+    container_name: bot.app.prod
+    build:
+      context: ..
+      dockerfile: ./build/app/Dockerfile.prod
+    environment:
+      - APP_ENV=prod
+    networks:
+      - bot

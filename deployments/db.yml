@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:8.3
+    container_name: bot.mysql
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=bot
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - bot

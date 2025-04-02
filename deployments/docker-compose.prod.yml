@@ -1,0 +1,9 @@
+include:
+  - path: db.yml
+  - path: app.prod.yml
+  - path: migration.prod.yml
+volumes:
+  mysql-data:
+networks:
+  bot:
+    external: false

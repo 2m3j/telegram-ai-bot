@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: bot.app
+    build:
+      context: ..
+      dockerfile: ./build/app/Dockerfile
+    volumes:
+      - ./..:/app
+    ports:
+      - "40000:40000"
+    networks:
+      - bot

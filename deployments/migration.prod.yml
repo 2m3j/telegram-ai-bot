@@ -1,0 +1,10 @@
+services:
+  migration:
+    container_name: bot.migration.prod
+    build:
+      context: ..
+      dockerfile: ./build/migration/Dockerfile.prod
+    depends_on:
+      - mysql
+    networks:
+      - bot
