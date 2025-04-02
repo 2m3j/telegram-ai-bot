@@ -43,7 +43,8 @@ func (h *endConversationsHandler) Handle(ctx context.Context, c EndConversations
 	if err != nil {
 		return fmt.Errorf("failed to find active conversations with user ID %d: %w", c.UserID, err)
 	}
-	if len(list) != 0 {
+	var msg = "Очистка контекста не требуется, о чём поговорим?"
+	if len(list) > 0 {
 		err = h.trm.Do(ctx, func(ctx context.Context) error {
 			for _, conv := range list {
 				conv.End()
@@ -56,12 +57,7 @@ func (h *endConversationsHandler) Handle(ctx context.Context, c EndConversations
 		if err != nil {
 			return fmt.Errorf("failed to transaction execution: %w", err)
 		}
-	}
-	var msg string
-	if len(list) > 0 {
 		msg = "Контекст диалога очищен, о чём поговорим?"
-	} else {
-		msg = "Очистка контекста не требуется, о чём поговорим?"
 	}
 	if err = h.bot.SendMessage(ctx, c.ChatID, msg); err != nil {
 		return fmt.Errorf("failed to send message (chat_id=%d, message='%s'): %w", c.ChatID, msg, err)
